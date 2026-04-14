@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kisha-Tech Electronics & Hardware</title>
+<style>
+  :root {
+    --bg:      #F8F9FA;
+    --surface: #FFFFFF;
+    --border:  #E9ECEF;
+    --text:    #1A1A2E;
+    --mid:     #6C757D;
+    --low:     #ADB5BD;
+    --accent:  #E63946;      /* Kisha-Tech red */
+    --accentLt:#FF6B6B;
+    --green:   #2A9D8F;
+    --mono:    'Courier New', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header {
+    background: var(--text);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .logo-text h1 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .logo-text p {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.55);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wa-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .wa-btn:hover { background: #128C7E; }
+
+  /* ── Search bar ──────────────────────────────────────── */
+  .search-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+  }
+  .search-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  #searchInput {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 24px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  #searchInput:focus { border-color: var(--accent); }
+  .item-count {
+    font-size: 0.78rem;
+    color: var(--mid);
+    white-space: nowrap;
+    font-family: var(--mono);
+  }
+
+  /* ── Category filter ─────────────────────────────────── */
+  .cats-wrap {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cats {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    padding: 10px 20px;
+    min-width: max-content;
+  }
+  .cat-btn {
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--mid);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* ── Main ────────────────────────────────────────────── */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* ── Hero strip ──────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--text) 0%, #16213E 100%);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .hero h2 {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .hero p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+  .hero-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    color: rgba(255,255,255,0.8);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; flex-shrink: 0; }
+
+  /* ── Section header ──────────────────────────────────── */
+  .section-hdr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .section-hdr h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cat-tag {
+    font-size: 0.7rem;
+    font-family: var(--mono);
+    color: var(--mid);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  /* ── Product grid ────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    transition: box-shadow 0.15s, border-color 0.15s;
+    cursor: pointer;
+  }
+  .card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border-color: var(--accent);
+  }
+  .card-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-price {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+  .card-unit {
+    font-size: 0.68rem;
+    color: var(--low);
+    font-family: var(--mono);
+  }
+  .card-qty {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-weight: 600;
+  }
+  .qty-ok  { background: rgba(42,157,143,0.1); color: var(--green); }
+  .qty-low { background: rgba(230,57,70,0.08); color: var(--accent); }
+
+  /* ── Empty / loading ─────────────────────────────────── */
+  .empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--mid);
+  }
+  .spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── WhatsApp float ──────────────────────────────────── */
+  #waFloat {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 56px; height: 56px;
+    background: linear-gradient(145deg, #25D366, #128C7E);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    cursor: pointer;
+    z-index: 200;
+    text-decoration: none;
+    transition: transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.5s 1.5s ease forwards;
+  }
+  #waFloat:hover { transform: scale(1.08); }
+  #waFloat svg { width: 26px; height: 26px; fill: #fff; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px) scale(0.85); }
+    to   { opacity: 1; transform: translateY(0)   scale(1);    }
+  }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 24px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--low);
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .hero { padding: 20px 16px; }
+    main { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">
+        <h1>Kisha-Tech</h1>
+        <p>ELECTRONICS & HARDWARE</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="wa-btn" href="https://wa.me/254742891721?text=Hello%20Kisha-Tech!%20I%20need%20help%20with%20a%20product." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        Order via WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ── Search ───────────────────────────────────────────────── -->
+<div class="search-bar">
+  <div class="search-inner">
+    <input id="searchInput" type="text" placeholder="Search MCB, bulb, cable, socket…" autocomplete="off" />
+    <span class="item-count" id="itemCount">Loading…</span>
+  </div>
+</div>
+
+<!-- ── Category filter ──────────────────────────────────────── -->
+<div class="cats-wrap">
+  <div class="cats" id="catButtons">
+    <button class="cat-btn active" data-cat="all">All</button>
+  </div>
+</div>
+
+<!-- ── Main ─────────────────────────────────────────────────── -->
+<main id="main">
+  <div class="hero">
+    <div>
+      <h2>Electronics &amp; Hardware — Machakos</h2>
+      <p>Opposite Manza College, Kenya Israel · Mon–Sat 7AM–7PM · Sun 9AM–5PM</p>
+    </div>
+    <div class="hero-badge">
+      <span class="dot" id="liveDot" style="background:#ADB5BD"></span>
+      <span id="liveLabel">Loading stock…</span>
+    </div>
+  </div>
+
+  <div id="catalogue">
+    <div class="empty"><div class="spinner"></div><p>Loading catalogue…</p></div>
+  </div>
+</main>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  Kisha-Tech Electronics &amp; Hardware · Powered by Zovrix AI Kenya · voltaos.vercel.app
+</footer>
+
+<!-- ── WhatsApp float ────────────────────────────────────────── -->
+<a id="waFloat" href="https://wa.me/254742891721?text=Hello%20Kisha-Tech!%20I%20need%20help%20with%20a%20product." target="_blank" rel="noopener" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ── Supabase CDN ───────────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ── CONFIG — replace with real Kisha-Tech Supabase credentials ──────────────
+const SUPABASE_URL = 'YOUR_KISHATECH_SUPABASE_URL';
+const SUPABASE_KEY = 'YOUR_KISHATECH_SUPABASE_ANON_KEY';
+// ─────────────────────────────────────────────────────────────────────────────
+
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const CATEGORY_ORDER = [
+  'Circuit Protection', 'Switches & Sockets', 'Lighting',
+  'Cables & Conduits', 'Heating Elements', 'Extensions & Plugs',
+  'Tools', 'Electronics & AV', 'Fixings & Adhesives',
+  'Accessories', 'Locks & Security',
+];
+
+let allItems    = [];
+let activecat   = 'all';
+let searchQuery = '';
+
+// ── Fetch inventory ──────────────────────────────────────────────────────────
+async function loadInventory() {
+  try {
+    const { data, error } = await db
+      .from('inventory')
+      .select('name, category, sell_price, qty, unit')
+      .gt('qty', 0)
+      .order('category')
+      .order('name');
+
+    if (error) throw error;
+
+    allItems = data || [];
+
+    // Live dot
+    document.getElementById('liveDot').style.background  = '#34d399';
+    document.getElementById('liveLabel').textContent = `${allItems.length} items in stock`;
+
+    buildCategoryButtons();
+    render();
+
+  } catch (err) {
+    console.error('Inventory load failed:', err);
+    document.getElementById('catalogue').innerHTML =
+      '<div class="empty"><p>Could not load catalogue. Please try again or contact us on WhatsApp.</p></div>';
+    document.getElementById('liveLabel').textContent = 'Offline';
+  }
+}
+
+// ── Build category filter buttons ────────────────────────────────────────────
+function buildCategoryButtons() {
+  const cats = [...new Set(allItems.map(i => i.category).filter(Boolean))];
+
+  // Sort by priority order, append any not in list
+  const ordered = CATEGORY_ORDER.filter(c => cats.includes(c));
+  cats.forEach(c => { if (!ordered.includes(c)) ordered.push(c); });
+
+  const wrap = document.getElementById('catButtons');
+  wrap.innerHTML = '<button class="cat-btn active" data-cat="all">All</button>';
+
+  ordered.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className  = 'cat-btn';
+    btn.dataset.cat = cat;
+    const count = allItems.filter(i => i.category === cat).length;
+    btn.textContent = `${cat} (${count})`;
+    btn.addEventListener('click', () => setCat(cat));
+    wrap.appendChild(btn);
+  });
+
+  wrap.querySelector('[data-cat="all"]').addEventListener('click', () => setCat('all'));
+}
+
+function setCat(cat) {
+  activecat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+  render();
+}
+
+// ── Render ───────────────────────────────────────────────────────────────────
+function render() {
+  const q = searchQuery.toLowerCase().trim();
+
+  let filtered = allItems.filter(item => {
+    const matchCat  = activecat === 'all' || item.category === activecat;
+    const matchQ    = !q
+      || item.name.toLowerCase().includes(q)
+      || (item.category || '').toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+
+  document.getElementById('itemCount').textContent =
+    `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    document.getElementById('catalogue').innerHTML =
+      `<div class="empty"><p>No items found${q ? ` for "${q}"` : ''}.</p>
+       <p style="margin-top:8px;font-size:0.82rem;">Try a different search or ask us on WhatsApp.</p></div>`;
+    return;
+  }
+
+  // Group by category
+  const bycat = {};
+  filtered.forEach(item => {
+    const c = item.category || 'Other';
+    if (!bycat[c]) bycat[c] = [];
+    bycat[c].push(item);
+  });
+
+  const orderedCats = CATEGORY_ORDER.filter(c => bycat[c]);
+  Object.keys(bycat).forEach(c => { if (!orderedCats.includes(c)) orderedCats.push(c); });
+
+  let html = '';
+  orderedCats.forEach(cat => {
+    const items = bycat[cat];
+    html += `<div class="section-hdr">
+      <h3>${cat} <span class="cat-tag">${items.length} item${items.length !== 1 ? 's' : ''}</span></h3>
+    </div>
+    <div class="grid">`;
+    items.forEach(item => {
+      const price = item.sell_price ?? 0;
+      const qty   = item.qty ?? 0;
+      const unit  = (item.unit || 'PCS').toUpperCase();
+      const low   = qty <= 5;
+      html += `<div class="card" onclick="enquire('${escHtml(item.name)}', ${price})">
+        <div class="card-name">${escHtml(item.name)}</div>
+        <div class="card-bottom">
+          <div>
+            <div class="card-price">KSh ${price.toLocaleString()}</div>
+            <div class="card-unit">per ${unit}</div>
+          </div>
+          <span class="card-qty ${low ? 'qty-low' : 'qty-ok'}">${low ? 'Low' : 'In stock'}</span>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  document.getElementById('catalogue').innerHTML = html;
+}
+
+function escHtml(str) {
+  return String(str).replace(/[&<>"']/g, c =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// ── Enquire via WhatsApp ─────────────────────────────────────────────────────
+function enquire(name, price) {
+  const text = encodeURIComponent(
+    `Hello Kisha-Tech! I would like to enquire about:\n*${name}* — KSh ${price.toLocaleString()}\n\nIs this available?`
+  );
+  window.open(`https://wa.me/254742891721?text=${text}`, '_blank');
+}
+
+// ── Search ───────────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  render();
+});
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+loadInventory();
+</script>
+</body>
+</html>
