@@ -381,6 +381,21 @@
   </div>
 </main>
 
+<!-- ── AI ASSISTANT (KISHA-TECH) ─────────────────────────── -->
+<div style="margin: 20px; padding: 16px; background: #fff; border: 1px solid #E9ECEF; border-radius: 12px;">
+  <h3 style="margin-bottom: 10px;">AI Shop Assistant</h3>
+
+  <input id="aiInput" type="text" placeholder="Ask about stock, pricing, restock..." 
+    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px;" />
+
+  <button onclick="askAI()" 
+    style="margin-top: 10px; padding: 10px 16px; background: #E63946; color: white; border: none; border-radius: 8px;">
+    Ask AI
+  </button>
+
+  <div id="aiResponse" style="margin-top: 10px; font-size: 0.9rem; color: #1A1A2E;"></div>
+</div>
+
 <!-- ── Footer ───────────────────────────────────────────────── -->
 <footer>
   Kisha-Tech Electronics &amp; Hardware · Powered by Zovrix AI Kenya ·
@@ -557,6 +572,34 @@ document.getElementById('searchInput').addEventListener('input', e => {
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 loadInventory();
+
+async function askAI() {
+  const input = document.getElementById("aiInput").value;
+
+  if (!input) return;
+
+  document.getElementById("aiResponse").innerText = "Thinking...";
+
+  try {
+    const res = await fetch("https://kisha-tech-backend.onrender.com/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: input })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("aiResponse").innerText =
+      data.reply || data.error || "No response";
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById("aiResponse").innerText =
+      "Backend not reachable";
+  }
+}
 </script>
 </body>
 </html>
